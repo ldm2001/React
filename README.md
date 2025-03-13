@@ -21,4 +21,4 @@ bash 터미널에서 디렉토리 변경
 npm run start
 ```
 ### React Project의 구조 및 역할
-![alt text](image.png)
+![alt text](image/image.png)
