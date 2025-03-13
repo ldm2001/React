@@ -13,3 +13,12 @@
   - 단점
   1. CPU 집약적인 작업에 부적합
   2. 보안에 취약
+
+### React Project 생성
+```
+npx create-react-app 이름
+bash 터미널에서 디렉토리 변경
+npm run start
+```
+### React Project의 구조 및 역할
+![alt text](image.png)
