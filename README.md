@@ -31,15 +31,56 @@
 
 ### 의존성 관리와 package.json
 
-- package.json은 패키지의 의존성을 관리하는 파일
-- 의존성이란 하나의 소프트웨어가 다른 소프트웨어에 의존하여 동작하는 관계 
-- 협업을 할 때는 팀원들 각자의 컴퓨터에 같은 패키지들을 설치하여 동일한 환경을 구성해야 함
-- 의존성을 무시하면 다른 버전의 패키지를 설치하는 팀원 때문에 오류가 발생할 수 있음
+  - package.json은 패키지의 의존성을 관리하는 파일
+  - 의존성이란 하나의 소프트웨어가 다른 소프트웨어에 의존하여 동작하는 관계 
+  - 협업을 할 때는 팀원들 각자의 컴퓨터에 같은 패키지들을 설치하여 동일한 환경을 구성해야 함
+  - 의존성을 무시하면 다른 버전의 패키지를 설치하는 팀원 때문에 오류가 발생할 수 있음
 
 ### 의존성을 관리하는 이유
-  - 손쉬운 설치 및 업데이트
-  - 일관된 개발 환경 유지
-  - 중복 설치 방지
+  1. 손쉬운 설치 및 업데이트
+  2. 일관된 개발 환경 유지
+  3. 중복 설치 방지
+
+### package.json의 의존성 내용과 종류
+  1. dependencies: 실제 코드에서 사용하는 라이브러리
+  2. devDependencies: 개발할 때만 필요한 라이브러리들
+  3. peerDependencies: 필요한 라이브러리지만, 직접 설치하지 않고 사용자에게 맡기는 경우
+  4. optionalDependencies: 있어도 되고 없어도 되는 선택적 의존성
+
+### package.json와 package-lock.json의 차이
+
+![alt text](image/image2.png)
+
+### package.json을 유지하는 이유
+  1. 프로젝트의 의존성 정보 제공
+  2. 버전 범위 설정 가능
+  3. 스크립트와 메타데이터 저장
+  4. 새로운 패키지 설치 및 관리
+
+### node_module의 재설치
+  - 클론을 받은 프로젝트의 경우
+```
+$ npm install
+```
+
+### 오류나 의존성 등의 문제가 생겼을 경우
+  1. node modules 폴더와 package-lock.json 파일 삭제
+  ```
+  $ rm -rf node_modules package-lock.json
+  ```
+  2. npm 패키지의 임시 저장소인 캐시를 초기화 
+  ```
+  $ npm cache clean --force
+  ```
+  3. 패키지를 다시 설치
+  ```
+  $ npm install
+  ```
+
+### package-lock.json을 삭제하는 이유
+  1. package-lock.json 손상되었거나 잘못된 의존성이 있을때
+  2. 최신 버전의 패키지를 다시 받고 싶을때
+  3. 팀프로젝트에서 다른 팀원이 이상한 상태로 package-lock.json을 업데이트 했을때
 
 
 
@@ -63,4 +104,4 @@ bash 터미널에서 디렉토리 변경
 npm run start
 ```
 ### React Project의 구조 및 역할
-![alt text](image/image.png)
+![alt text](image/image1.png)
