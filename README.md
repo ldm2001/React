@@ -100,7 +100,7 @@ Video.js
   );
 }
   ```
-![alt text](image/image30.png)
+![alt text](image/image3.png)
 
 ## 2025-03-13
 ### Node.JS 
