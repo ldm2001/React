@@ -82,7 +82,24 @@ $ npm install
   2. 최신 버전의 패키지를 다시 받고 싶을때
   3. 팀프로젝트에서 다른 팀원이 이상한 상태로 package-lock.json을 업데이트 했을때
 
+### 컴포넌트를 사용한 유저 인터페이스 생성
+  1. React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음 
 
+Video.js
+  ```Javascript
+  function Video({ video }) {
+  return (
+    <div>
+      <Thumbnail video={video} />
+      <a href={video.url}>
+        <h3>{video.title}</h3>
+        <p>{video.description}</p>
+      </a>
+      <LikeButton video={video} />
+    </div>
+  );
+}
+  ```
 
 ## 2025-03-13
 ### Node.JS 
