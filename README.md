@@ -1,6 +1,7 @@
 # 202030225 이동민 
 
 ## 2025-03-20
+
 ### React Project의 구조 및 역할
 
 - node_modules 
@@ -83,10 +84,10 @@ $ npm install
   3. 팀프로젝트에서 다른 팀원이 이상한 상태로 package-lock.json을 업데이트 했을때
 
 ### 컴포넌트를 사용한 유저 인터페이스 생성
-  1. React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음 
+  - React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음 
 
-Video.js
-  ```Javascript
+  Video.js 
+  ``` Javascript
   function Video({ video }) {
   return (
     <div>
@@ -99,10 +100,101 @@ Video.js
     </div>
   );
 }
-  ```
+```
+
 ![alt text](image/image3.png)
 
+### 컴포넌트를 작성하는 JavaScript와 마크업
+  - React 컴포넌트는 자바스크립트 함수
+  - 조건부로 내용을 표시하려면 if문 사용 가능
+  - 목록을 표시하려면 배열에 map() 사용 가능
+
+VideoList.js
+``` javascript
+function VideoList({ videos, emptyHeading }) {
+  const count = videos.length;
+  let heading = emptyHeading;
+  if (count > 0) {
+    const noun = count > 1 ? 'Videos' : 'Video';
+    heading = count + ' ' + noun;
+  }
+  return (
+    <section>
+      <h2>{heading}</h2>
+      {videos.map(video =>
+        <Video key={video.id} video={video} />
+      )}
+    </section>
+  );
+}
+```
+
+![alt text](image/image4.png)
+
+- 이 마크업 구문을 JSX라 부름
+- React에 의해서 대중화된 자바스크립트 구문의 확장
+- 컴포넌트를 쉽게 만들고 관리하고 삭제할 수 있음
+
+### 필요한 곳에 상호작용 요소 추가하기
+  - 컴포넌트는 데이터를 받고 화면에 표시할 내용을 반환
+  - 사용자가 입력란에 입력하는 것과 같이 상호작용에 응답하여 새 데이터를 전달할 수 있음
+  - 그 후 새 데이터와 일치하도록 화면을 업데이트
+
+SearchableVideoList.js
+```javascript
+import { useState } from 'react';
+
+function SearchableVideoList({ videos }) {
+  const [searchText, setSearchText] = useState('');
+  const foundVideos = filterVideos(videos, searchText);
+  return (
+    <>
+      <SearchInput
+        value={searchText}
+        onChange={newText => setSearchText(newText)} />
+      <VideoList
+        videos={foundVideos}
+        emptyHeading={`No matches for “${searchText}”`} />
+    </>
+  );
+}
+```
+![alt text](image/image5.png)
+
+### 프레임워크를 통해 풀스택으로 만들기
+  - React는 라이브러리이므로 컴포넌트를 조합할 수 있지만 데이터를 가져오지는 못함
+  - React로 완전한 서비스 제작하려면 Next.js 또는 리믹스 같은 풀스택 프레임워크 추천
+
+confs/[slug].js
+```javascript
+import { db } from './database.js';
+import { Suspense } from 'react';
+
+async function ConferencePage({ slug }) {
+  const conf = await db.Confs.find({ slug });
+  return (
+    <ConferenceLayout conf={conf}>
+      <Suspense fallback={<TalksLoading />}>
+        <Talks confId={conf.id} />
+      </Suspense>
+    </ConferenceLayout>
+  );
+}
+
+async function Talks({ confId }) {
+  const talks = await db.Talks.findAll({ confId });
+  const videos = talks.map(talk => talk.video);
+  return <SearchableVideoList videos={videos} />;
+}
+```
+![alt text](image/image6.png)
+
+- React는 아키텍처이기도 함
+- 프레임워크는 서버에서 실행되는 비동기 컴포넌트 또는 빌드 중 실행되는 비동기 컴포넌트에서 데이터를 가져올 수 있도록 함
+- 파일이나 DB에서 데이터를 읽고 상호작용하는 컴포넌트에 전달할 수 있음
+
 ## 2025-03-13
+
 ### Node.JS 
   - 장점
   1. 비동기는 블로킹 I/O로  높은 성능 제공
