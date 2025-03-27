@@ -1,6 +1,169 @@
 # 202030225 이동민 
 
-## 2025-03-20
+## 2025-03-27
+
+### Component의 생성 및 nesting
+- React는 component로 만들어짐
+- component는 버튼처럼 작을 수도 있고 전체 페이지처럼 클 수도 있음
+- component는 마크업을 반환하는 JavaScript 함수
+- 중첩은 Css 선택자의 중첩 구조를 생각하면 쉽게 이해할 수 있음
+
+/src/App.js
+```Javascript
+ffunction MyButton() {
+  return (
+    <button>
+      I'm a button
+    </button>
+  );
+}
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Welcome to my app</h1>
+      <MyButton />
+    </div>
+  );
+```
+### export default
+- 파일내의 컴포넌트중 기본 컴포넌트를 지정
+- JS 문법
+
+### export default 선언 위치는 어디가 좋을까
+- 공식 문서처럼 main component의 function 키워드 왼쪽에 선언하는게 좋음
+- 한 파일에 여러개 컴포넌트가 있을때 가독성에 좋음
+
+### Named Exports (export)
+- 하나의 파일안에 여러 개의 컴포넌트가 있을때 사용
+- 컴포넌트를 사용하는 쪽에서는 컴포넌트 정확한 이름을 명시
+
+### Default Exports
+- 하나의 파일안에서 하나의 컴포넌트만 내보내는 경우 사용
+- 컴포넌트 사용하는 쪽에너는 컴포넌트 정확한 이름을 반드시 명시해야 함
+
+App.js
+```javascript
+import MyB from "./MyButton"
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Welcome to my app</h1>
+      <MyB />
+    </div>
+  );
+}
+```
+MyButton.js
+```javascript
+export default function MyButton() {
+  return (
+    <button>I'm a button component</button>
+  );
+}
+```
+App.js
+```javascript
+import MyB from "./MyButton"
+import { Button1, Button3 } from "./BottonLib";
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Welcome to my app</h1>
+      <MyB /><br />
+      <Button1 />&nbsp;
+      <Button3 />
+    </div>
+  );
+}
+```
+ButtonLib.js (중첩)
+```javascript
+function Button1() {
+  return (
+    <button>Button1</button>
+  )
+}
+function Button2() {
+  return (
+    <button>Button2</button>
+  )
+}
+function Button3() {
+  return (
+    <button>Button3</button>
+  )
+}
+
+export { Button1, Button2, Button3 }
+```
+### JSX로 마크업 작성하기
+- 반드시 써야 하는 것은 아니지만 리액트 프로젝트에서는 편의성을 위해 JSX를 사용
+- JSX는 HTML보다 엄격한 문법 적용
+- JSX에서는 <br /> 같이 싱글 태그를 닫아야 합니다
+- React 에서는 여러 개의 컴포넌트를 JSX 태그로 반환할 수 있음 
+
+AboutPage.js
+```Javascript
+export default function AboutPage() {
+  return (
+    <>
+      <h1>About Page</h1>
+      <p>Hello!!!</p>
+    </>
+  )
+}
+```
+
+### 스타일 추가하기
+- 리액트에서는 className으로 css 클래스를 지정
+- className은 HTML의 class 속성과 동일한 방식으로 동작
+
+## 데이터 표시하기
+- JSX를 사용하면 자바스크립트에 마크업을 넣을 수 있음 (Js안의 마크업 안에 JS를 넣는다는게 더 정확한 표현)
+- JSX 코드 내에서 JavaScript로 탈출하여 변수나 표현식을 사용하는 것
+
+Profile.js
+```javascript
+import './Profile.css'
+
+const user = {
+  name: 'Hedy Lamarr',
+  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  imageSize: 90,
+};
+
+export default function Profile() {
+  return (
+    <>
+      <h1>{user.name}</h1>
+      <img
+        className="avatar"
+        src={user.imageUrl}
+        alt={'Photo of ' + user.name}
+        style={{
+          width: user.imageSize,
+          height: user.imageSize
+        }}
+      />
+    </>
+  );
+}
+```
+Profile.css
+```css
+.avatar {
+  border-radius: 50%;
+}
+```
+### 리스트 렌더링하기
+- 컴포넌트 리스트를 렌더링하기 위해서는 for문 및 map() 함수와 같은 자바스크립트 기능 사용
+- 목록을 사용 할 때는 각 항목에 대해 고유하게 식별하는 문자열 또는 숫자를 전달해야 함
+- 항목을 삽입, 삭제 또는 재정렬할 때 어떤 일이 일어났는지 알기 위해 key를 사용
+
+
 
 ### React Project의 구조 및 역할
 
