@@ -43,7 +43,9 @@ export default function MyApp() {
           <ShoppingList />
       </div>
       <div>
+        <p>updating the screen</p>
         <MyButton />
+        <CountState />
         <CountState />
       </div>
       <div>
