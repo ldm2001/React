@@ -1,6 +1,83 @@
 # 202030225 이동민 
 
-## 2025-03-27
+## 2025-04-03
+
+### 이벤트에 응답하기
+- 컴포넌트 내부에 event handler 함수를 선언하면 이벤트에 응답할 수 있음
+- onClick={handleClick}의 끝에 소괄호가 없는 것을 주목
+- 함수를 호출하지 않고 전달만 하면 됨
+- 리액트는 사용자가 버튼을 클릭할때 이벤트 헨들러를 호출
+
+MyButton.js
+```javascript
+export default function MyButton() {
+  function handleClick() {
+    alert('You clicked me')
+  }
+  
+  return (
+    <button onClick={handleClick}>
+      I'm a button component
+    </button>
+  );
+}
+```
+
+### 화면 업데이트하기
+- 컴포넌트가 특정 정보를 기억해 두었다가 표시하기를 원하는 경우가 있습니다
+- 예를 들어 버튼이 클릭된 횟수를 세고 싶을 수 있는데 그렇게 할 때는 state를 추가하면 됨
+
+```javascript
+import { useState } from 'react';
+```
+- 리액트에서 useState를 import함
+- 보면 useState는 리액트 파일 안에 Named Exports로 선언되어 있는 여러 개의 컴포넌트중 하나라는 것을 알 수 있음
+- 컴포넌트 내부에 state 변수를 선언할 수 있음
+- useState로부터 현재의 state를 지정할 수 있는 변수인 count와 이를 업데이트할 수 있는 함수인 setCount를 얻을 수 있음
+- 변수 이름과 변수 이름 앞에 set을 붙인 업데이트 함수를 관용적으로 사용
+
+CountState.js
+```javascript
+import { useState } from 'react'
+
+export default function CountState() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1)
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>
+        Clicked {count} times
+      </button>
+    </div>
+  )
+}
+```
+
+### Hook 사용하기
+- use로 시작하는 함수를 Hook이라고 함
+- useState는 리액트에서 제공하는 내장 Hook임
+- 기존의 것들을 조합하여 자신만의 Hook을 작성할 수 있음
+
+### Hooks의 사용 규칙
+1. 최상위에서만 호출해야 함
+2. 리액트 함수형 컴포넌트 또는 사용자 Hook 내부에서만 사용 가능
+  - 일반적인 자바스크립트 함수에서 useState, useEffect 등의 Hook을 사용할 수 없음
+
+### 이런 제한이 필요한 이유
+1. 렌더링 순서를 보장하기 위해서
+2. 불필요한 사이드 이펙트 방지
+
+### function형 컴포넌트에서만 Hook을 사용하는 이유
+- 과거에는 Class형 컴포넌트는 lifecycle 함수를 통해서 상태를 관리 했음
+- 유지보수가 어렵고 복잡해질 수 있었음
+- 리액트는 상태관리와 로직을 더 간결하게 만들기 위해 Hooks를 도입
+- 리액트 팀은 function형 컴포넌트를 권장하고 있음
+- Hook은 function형 컴포넌트 전용으로 설계됨
+
 
 ### Component의 생성 및 nesting
 - React는 component로 만들어짐
@@ -10,7 +87,7 @@
 
 /src/App.js
 ```Javascript
-ffunction MyButton() {
+function MyButton() {
   return (
     <button>
       I'm a button
@@ -25,6 +102,7 @@ export default function MyApp() {
       <MyButton />
     </div>
   );
+}
 ```
 ### export default
 - 파일내의 컴포넌트중 기본 컴포넌트를 지정
