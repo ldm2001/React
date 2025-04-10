@@ -1,6 +1,18 @@
 # 202030225 이동민 
 
-## 2025-04-03
+## 2025-04-10
+
+### props를 통해 데이터 전달하기
+- 리액트의 component architecture를 사용해서 재사용할 수 있는 컴포넌트를 만들어서 중복된 코드를 삭제
+
+### 사용자와 상호작용하는 컴포넌트 만들기
+- 컴포넌트는 무언가 기억하기 위해 state 사용
+
+## state 끌어올리기
+- 여러 자식 컴포넌트 데이터를 수집하거나 두 자식 컴포넌트가 서로 통신하도록 하려면, 부모 컴포넌트에서 공유 state를 선언해야 함
+- 부모 컴포넌트는 props를 통해 해당 state를 자식 컴포넌트에 전달할 수 있음
+- 이렇게 하면 자식 컴포넌트가 서로 동기화되고 부모 컴포넌트와도 동기화 되도록 할 수 있음
+
 
 ### 이벤트에 응답하기
 - 컴포넌트 내부에 event handler 함수를 선언하면 이벤트에 응답할 수 있음
@@ -8,7 +20,7 @@
 - 함수를 호출하지 않고 전달만 하면 됨
 - 리액트는 사용자가 버튼을 클릭할때 이벤트 헨들러를 호출
 
-MyButton.js
+`MyButton.js`
 ```javascript
 export default function MyButton() {
   function handleClick() {
@@ -36,7 +48,7 @@ import { useState } from 'react';
 - useState로부터 현재의 state를 지정할 수 있는 변수인 count와 이를 업데이트할 수 있는 함수인 setCount를 얻을 수 있음
 - 변수 이름과 변수 이름 앞에 set을 붙인 업데이트 함수를 관용적으로 사용
 
-CountState.js
+`CountState.js`
 ```javascript
 import { useState } from 'react'
 
@@ -85,7 +97,7 @@ export default function CountState() {
 - component는 마크업을 반환하는 JavaScript 함수
 - 중첩은 Css 선택자의 중첩 구조를 생각하면 쉽게 이해할 수 있음
 
-/src/App.js
+`App.js`
 ```Javascript
 function MyButton() {
   return (
@@ -120,7 +132,7 @@ export default function MyApp() {
 - 하나의 파일안에서 하나의 컴포넌트만 내보내는 경우 사용
 - 컴포넌트 사용하는 쪽에너는 컴포넌트 정확한 이름을 반드시 명시해야 함
 
-App.js
+`App.js`
 ```javascript
 import MyB from "./MyButton"
 
@@ -141,7 +153,7 @@ export default function MyButton() {
   );
 }
 ```
-App.js
+`App.js`
 ```javascript
 import MyB from "./MyButton"
 import { Button1, Button3 } from "./BottonLib";
@@ -157,7 +169,7 @@ export default function MyApp() {
   );
 }
 ```
-ButtonLib.js (중첩)
+`ButtonLib.js` (중첩)
 ```javascript
 function Button1() {
   return (
@@ -183,7 +195,7 @@ export { Button1, Button2, Button3 }
 - JSX에서는 <br /> 같이 싱글 태그를 닫아야 합니다
 - React 에서는 여러 개의 컴포넌트를 JSX 태그로 반환할 수 있음 
 
-AboutPage.js
+`AboutPage.js`
 ```Javascript
 export default function AboutPage() {
   return (
@@ -203,7 +215,7 @@ export default function AboutPage() {
 - JSX를 사용하면 자바스크립트에 마크업을 넣을 수 있음 (Js안의 마크업 안에 JS를 넣는다는게 더 정확한 표현)
 - JSX 코드 내에서 JavaScript로 탈출하여 변수나 표현식을 사용하는 것
 
-Profile.js
+`Profile.js`
 ```javascript
 import './Profile.css'
 
@@ -230,7 +242,7 @@ export default function Profile() {
   );
 }
 ```
-Profile.css
+`Profile.css`
 ```css
 .avatar {
   border-radius: 50%;
@@ -241,7 +253,7 @@ Profile.css
 - 목록을 사용 할 때는 각 항목에 대해 고유하게 식별하는 문자열 또는 숫자를 전달해야 함
 - 항목을 삽입, 삭제 또는 재정렬할 때 어떤 일이 일어났는지 알기 위해 key를 사용
 
-Shopping.js
+`Shopping.js`
 ```javascript
 const products = [
   { title: 'Cabbage', isFruit: false, id: 1 },
