@@ -1,6 +1,18 @@
 # 202030225 이동민 
 
-## 2025-04-10
+## 2025-04-17
+
+### state 끌어올리기
+- Board가 모든 State를 관리하므로 부모 Baord 컴포넌트는 자식 square 컴포넌트가 올바르게 표시될 수 있도록 props를 전달
+- Square 클릭하면 자식 Square 컴포넌트가 부모 Board 컴포넌트에 Board의 state를 업데이트 하도록 요청
+- Board의 state가 변경되면 Board 컴포넌트와 모든 자식 Square 컴포넌트가 자동으로 다시 렌더링 됨
+- Board 컴포넌트에 속한 모든 Square의 state를 유지하면 나중에 승자를 결정 할 수 있음
+
+### state 끌어올리기 (중요)
+- DOM <button> 엘리먼트의 onClick 속성은 빌트인 컴포넌트이기 때문에 리액트에서 특별한 의미를 갖음
+- 사용자 정의 컴포넌트
+- Square의 onSquareClick prop나 Board의 handleClick 함수에 어떠한 이름을 붙여도 코드는 동일하게 작동
+- 리액트에서는 주로 이벤트를 나타내는 prop에는 onSomething과 같은 이름을 사용하고, 이벤트를 처리하는 함수를 정의 할 때는 handleSomething과 같은 이름을 사용
 
 ### props를 통해 데이터 전달하기
 - 리액트의 component architecture를 사용해서 재사용할 수 있는 컴포넌트를 만들어서 중복된 코드를 삭제
