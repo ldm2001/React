@@ -26,6 +26,71 @@
 2. 그들의 가장 가까운 공통되는 부모 컴포넌트를 찾아야 함 - 계층에서 모두를 포함하는 상위 컴포넌트
 3. state가 어디에 위치 돼야 하는 지 결정
 
+### state가 어디에 위치 돼야 하는지 결정
+1. 대개 공통 부모에 state를 그냥 두면 됨
+2. 혹은 공통 부모 상위의 컴포넌트에 둬도 됨 
+3. state를 소유할 적절한 컴포넌트를 찾지 못했다면 state를 소유하는 컴포넌트를 하나 만들어서 상위 계층에 추가
+
+### Step 5: 역 데이터 흐름 추가하기
+- 이제 사용자 입력에 따라 state를 변경하려면 반대 방향의 데이터 흐름을 만들어야함
+- 이를 위해서는 계층 구조의 하단에 있는 컴포넌트에서 FilterableProductTable의 state를 업데이트할 수 있어야함
+- 리액트는 데이터 흐름을 명시적으로 보이게 만들어줌
+- 그러나 전통적인 양방향 데이터 바인딩보다 조금 더 많은 타이핑이 필요함
+- 4단계의 예시에서 체크하거나 키보드를 타이핑할 경우 UI의 변화가 없고 입력을 무시하는 것을 확인할 수 있음
+- 이것은 의도적으로 `<input value={filterText} />`로 코드를 쓰면서 value라는 prop이 항상 FilterableProductTable의 filterText라는 state를 통해서 데이터를 받도록 정했기 때문
+
+```javaScript
+function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  return (
+    <div>
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        setFilterTextChange={setFilterText}
+        setInStockOnlyChange={setInStockOnly}
+      />
+    </div>
+  );
+}
+```
+- filterText라는 state가 변경되는 것이 아니기 때문에 input의 value는 변하지 않고 화면도 바뀌는 것이 없음
+- 우리는 사용자가 input을 변경할 때마다 사용자의 입력을 반영할 수 있도록 state를 업데이트하기를 원함
+- state는 FilterableProductTable이 가지고 있고 state 변경을 위해서는 setFilterText와 setInStockOnly를 호출을 하면 됨
+- SearchBar가 FilterableProductTable의 state를 업데이트할 수 있도록 하려면, 이 함수들을 SearchBar로 전달
+```javaScript
+function SearchBar({
+  filterText,
+  inStockOnly,
+  onFilterTextChange,
+  onInStockOnlyChange
+}) {
+  return (
+    <form>
+      <input
+        type="text"
+        value={filterText}
+        placeholder="Search..."
+        onChange={(e) => onFilterTextChange(e.target.value)}
+      />
+      <label>
+        <input
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={(e) => onInStockOnlyChange(e.target.checked)}
+        />
+        {' '}
+        Only show products in stock
+      </label>
+    </form>
+  );
+}
+```
+- SearchBar에서 onChange 이벤트 핸들러를 추가하여 부모 state를 변경할 수 있도록 구현할 수 있음
+
+
 ## 2025-05-08
 
 ### 리액트로 사고하기
