@@ -1,5 +1,77 @@
 # 202030225 이동민 
 
+## 2025-06-05
+
+### 기존 프로젝트에 React 추가
+
+- 기존에 존재하던 index.html의 원본 Html 컨텐츠가 그대로 남아있는 것을 확인할 수 있음
+- 하지만 이제는 <nav id="navigation"> 안에 개발자가 직접 작성한 NavigationBar React 컴포넌트가 나타남
+- 기존 Html 페이지에서 리액트 컴포넌트가 렌더링 되는 것에 대해서 더 알아보려면 createRoot 사용법 문서를 읽기
+- 기존 프로젝트에서 리액트를 도입할 때 일반적으로 작은 상호작용 컴포넌트에서 시작하여 점진적으로 상위 구조로 확장하면서 결국에는 전체 페이지가 리액트로 빌드될 때까지 이 과정을 반복하게 됨
+- 이 지점에 도달한다면 리액트의 장점을 최대한 활용하기 위해 리액트 프레임워크로 마이그레이션하는 것을 권장
+
+### 06-1. 에디터 설정하기
+- 적절한 개발환경은 코드의 가독성을 높이며 개발 속도를 높여줌
+- 심지어 코드를 작성하는 과정에서 버그를 찾아줄 수도 있음
+- 코드 에디터를 설치하는 것이 이번이 처음이거나 현재 사용하는 에디터의 설정을 개선하고 싶으시다면 몇 가지 추천 사항이 있음
+
+1. Linting
+- 코드 린터는 코드를 작성하는 동안 실시간으로 문제를 찾아 줌으로써 빠른 문제해결이 가능하도록 도와줌
+- ESLint는 많이 사용되고 JavaScript를 위한 오픈소스 린터
+- 프로젝트의 모든 eslint-plugin-react-hooks 규칙을 활성화했는지 확인 필요
+- 권장되는 eslint-config-react-app 프리셋에는 이미 이 규칙이 포함되어 있음
+
+2. Formatting
+- Prettier를 사용하면 직접 지정해 놓은 규칙들에 부합하도록 코드의 형식을 깔끔하게 정리할 수 있음
+- Prettier를 실행하면 모든 탭을 공백으로 전환될 뿐만 아니라 들여쓰기, 따옴표 형식과 같은 소통에 전부 설정에 부합하도록 수정 가능
+- 파일을 저장할 때마다 Prettier가 자동 실행되어 이러한 작업들을 수행해 주는 것이 가장 이상적인 설정
+
+### 06-2 TypeScript 사용하기
+- JSX를 포함하고 있는 모든 파일은 .tsx 파일 확장자를 사용해야 함
+- 이것은 이 파일이 JSX를 포함하고 있음을 TypeScript에 알려주는 TypeScript 전용 확장자
+- 리액트와 함께 TypeScript를 작성하는 것은 React와 함께 JavaScript를 작성하는 것과 매우 유사함
+- 컴포넌트로 작업할 때 가장 중요한 차이점은 컴포넌트의 props에 타입을 제공할 수 있다는 점
+- 이러한 타입은 에디터에서 정확성을 검사하고, 인라인 문서를 제공하는 데 사용할 수 있음
+
+``` Typescript
+function MyButton({ title }: { title: string }) {
+  return (
+    <button>{title}</button>
+  );
+}
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Welcome to my app</h1>
+      <MyButton title="I'm a button" />
+    </div>
+  );
+}
+
+```
+
+```javascript
+import MyApp from './MyApp.tsx';
+import './App.css';
+
+export default function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        Hello, Chapter06!
+        <MyApp />
+      </header>
+    </div>
+  );
+}
+
+```
+- 컴포넌트의 props를 설명하는 타입은 원하는 만큼 단순하거나 복잡할 수 있음
+- 다만 type 또는 interface로 설명되는 객체 타입이어야 함
+- TypeScript가 객체를 설명하는 방법에 대해 Object Types에서 배울 수 있음
+- 또한 Union Types를 통해 몇 가지 타입 중 하나의 타입을 선택하는 prop 사용법을 배울 수도 있음
+
 ## 2025-05-29
 
 ### React Server Components: RSC를 사용하면 빌드 타임, 서버 전용, 인터렉티브 컴포넌트를 단일 리액트 트리에 포함할 수 있음
