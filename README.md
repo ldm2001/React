@@ -72,6 +72,42 @@ export default function App() {
 - TypeScript가 객체를 설명하는 방법에 대해 Object Types에서 배울 수 있음
 - 또한 Union Types를 통해 몇 가지 타입 중 하나의 타입을 선택하는 prop 사용법을 배울 수도 있음
 
+### 06-2 TypeScript 사용하기 - 유용한 타입들
+
+1. DOM 이벤트 
+- 리액트에서 DOM의 이벤트 작업을 할 때 이벤트 핸들러로부터 이벤트의 타입을 추론할 수 있음
+- 하지만 이벤트 핸들러에 전달할 함수를 추출하고 싶을 때는 이벤트 타입을 명시적으로 설정해야 함
+
+2. Children
+- 첫 번째는 JSX에서 자식으로 전달할 수 있는 가능한 모든 타입의 조합인 React.ReactNode 타입을 사용하는 것
+
+```Typescript
+interface ModalRendererProps {
+  title: string;
+  children: React.ReactNode;
+}
+```
+- 두 번째는 string이나 number 같은 JavaScript **원시 값(primitive)**이 아닌 JSX 엘리먼트만 있는 React.ReactElement 타입을 사용하는 것
+
+```Typescript
+interface ModalRendererProps {
+  title: string;
+  children: React.ReactElement;
+}
+```
+
+### 1. GitHub Pages 기본 저장소란?
+- GitHub Pages를 운영하려면 먼저 GitHub Pages 저장소를 생성해야 함
+- 생성 방법은 일반 저장소 생성과 동일하지만 저장소 이름은 도메인 형태로 해야 함
+  - 예: <My GitHub ID>.github.io
+- 또한 최상위 도메인 부분은 .com이 아니라 .io로 해야 함
+- GitHub에서 직접 저장소를 만들었다면 clone해서 local에서 작업하고 push함
+- 처음부터 저장소를 local에 만들었다면 그대로 push
+- 이 저장소는 GitHub에서 정적 호스팅을 하기 위해서는 반드시 필요한 저장소
+- 이후 다른 이름의 저장소도 페이지로 사용할 수 있음
+- 단 페이지로 사용할 저장소가 있다면 설정에서 페이지를 활성화해야 함
+
+
 ## 2025-05-29
 
 ### React Server Components: RSC를 사용하면 빌드 타임, 서버 전용, 인터렉티브 컴포넌트를 단일 리액트 트리에 포함할 수 있음
